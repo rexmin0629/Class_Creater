@@ -44,6 +44,8 @@ namespace Class_Creater
                 }
                 #endregion
 
+                txt_ClassName.Text = "QuoteData";
+
                 Init_cmb_ParamType();
                 Init_dgv_Param();
             }
@@ -148,13 +150,16 @@ namespace Class_Creater
                     return;
                 }
 
-                string str_head = string.Format("public class {0} : INotifyPropertyChanged", txt_ClassName.Text) + "\n{\n";
+                string str_head = "[Serializable]\n";
+                str_head = str_head + string.Format("public class {0} : INotifyPropertyChanged, ICloneable", txt_ClassName.Text) + "\n{\n";
                 str_head = str_head + "     public event PropertyChangedEventHandler PropertyChanged;\n";
                 str_head = str_head + "     private void NotifyPropertyChanged(string name)\n     {\n";
                 str_head = str_head + "             if (PropertyChanged != null)\n";
                 str_head = str_head + "                 PropertyChanged(this, new PropertyChangedEventArgs(name));\n     }\n\n";
 
                 string str_body = string.Empty;
+
+                #region 參數部分
                 foreach (Param p in List_Params)
                 {
                     str_body = str_body + string.Format("     private {0} _{1} = default({2});\n", p.ParamType.ToString().ToLower(), p.ParamName, p.ParamType.ToString().ToLower());
@@ -166,14 +171,62 @@ namespace Class_Creater
                     str_body = str_body + "              \n          }\n";
                     str_body = str_body + "     }\n\n";
                 }
+                #endregion
 
+                #region 建構子部分
                 str_body = str_body + "     public " + txt_ClassName.Text + "()\n     {\n";
                 foreach (Param p in List_Params)
                 {
                     str_body = str_body + "          _" + p.ParamName + " = default(" + p.ParamType.ToString().ToLower() + ");\n";
                 }
+                str_body = str_body + "     }\n\n";
+                #endregion
 
-                string str_end = "     }\n}\n";
+                #region Get_Prop_Display函式
+                str_body = str_body + "     public static Dictionary<string, string> Get_Prop_Display()\n     {\n";
+                str_body = str_body + "          Dictionary<string, string> _Infos = new Dictionary<string, string>();\n";
+                str_body = str_body + "          try\n          {\n";
+                str_body = str_body + "                 PropertyInfo[] propInfos = default(PropertyInfo[]);\n";
+                str_body = str_body + "                 propInfos = typeof(" + txt_ClassName.Text + ").GetProperties();\n";
+                str_body = str_body + "                 propInfos.ToList().ForEach(x =>\n                 {\n";
+                str_body = str_body + "                         IList<CustomAttributeData> cad = (x as System.Reflection.MemberInfo).GetCustomAttributesData();\n";
+                str_body = str_body + "                         _Infos.Add(x.Name, cad[0].NamedArguments[1].TypedValue.Value.ToString());\n";
+                str_body = str_body + "                 });\n";
+                str_body = str_body + "                 return _Infos;\n          }\n";
+                str_body = str_body + "          catch (Exception ex)\n          {\n";
+                str_body = str_body + "                 return _Infos;\n          }\n     }\n\n";
+                #endregion
+
+                #region Clone函式
+                str_body = str_body + "     public object Clone()\n     {\n";
+                str_body = str_body + "          return this.MemberwiseClone();\n     }\n\n";
+
+                str_body = str_body + "     public object Clone_Deep()\n     {\n";
+                str_body = str_body + "          MemoryStream stream = new MemoryStream();\n";
+                str_body = str_body + "          BinaryFormatter formatter = new BinaryFormatter();\n";
+                str_body = str_body + "          formatter.Serialize(stream, this);\n";
+                str_body = str_body + "          stream.Position = 0;\n";
+                str_body = str_body + "          return formatter.Deserialize(stream);\n     }\n\n";
+                #endregion
+
+                #region ToArray函式
+                str_body = str_body + "     public object[] ToArray()\n     {\n";
+                str_body = str_body + "          return new object[] { " + string.Join(",", List_Params.Select(p => "_" + p.ParamName).ToArray()) + " };\n     }\n\n";
+                #endregion
+
+                #region ToString函式
+                str_body = str_body + "     public override string ToString()\n     {\n";
+
+                string str_format = "|";
+                for (int i = 0; i < List_Params.Count; i++)
+                {
+                    str_format = str_format + "{" + i + "}|";
+                }
+
+                str_body = str_body + @"          return string.Format(""" + str_format + @""", " + string.Join(",", List_Params.Select(p => "_" + p.ParamName).ToArray()) + ");\n     }\n\n";
+                #endregion
+
+                string str_end = "}\n";
 
                 rtb_Result.Text = str_head + str_body + str_end;
             }
@@ -238,6 +291,16 @@ namespace Class_Creater
 
                 BindingSource bs = new BindingSource();
                 bs.DataSource = List_Params;
+
+                //  Test
+                List_Params.Add(new Param() { ParamType = Parm_Type.String, ParamName = "Symbol" });
+                List_Params.Add(new Param() { ParamType = Parm_Type.String, ParamName = "PRODUCTNAME" });
+                List_Params.Add(new Param() { ParamType = Parm_Type.Int, ParamName = "SymboType" });
+                List_Params.Add(new Param() { ParamType = Parm_Type.Int, ParamName = "TradeTime" });
+                List_Params.Add(new Param() { ParamType = Parm_Type.Int, ParamName = "TWMATCHTIME" });
+                List_Params.Add(new Param() { ParamType = Parm_Type.Double, ParamName = "LastPrice" });
+                //
+
                 dgv_Param.DataSource = bs;
             }
             catch (Exception ex)

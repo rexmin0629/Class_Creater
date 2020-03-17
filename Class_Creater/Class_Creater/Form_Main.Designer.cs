@@ -52,6 +52,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.dgv_Param);
             this.groupBox1.Controls.Add(this.btn_Convert);
             this.groupBox1.Controls.Add(this.btn_NewParam);
@@ -64,24 +67,27 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(255, 394);
+            this.groupBox1.Size = new System.Drawing.Size(576, 456);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "轉換內容";
             // 
             // dgv_Param
             // 
+            this.dgv_Param.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.dgv_Param.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_Param.Location = new System.Drawing.Point(20, 169);
             this.dgv_Param.Name = "dgv_Param";
             this.dgv_Param.RowTemplate.Height = 24;
-            this.dgv_Param.Size = new System.Drawing.Size(207, 184);
+            this.dgv_Param.Size = new System.Drawing.Size(207, 246);
             this.dgv_Param.TabIndex = 10;
             this.dgv_Param.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dgv_Param_MouseDown);
             // 
             // btn_Convert
             // 
-            this.btn_Convert.Location = new System.Drawing.Point(152, 359);
+            this.btn_Convert.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_Convert.Location = new System.Drawing.Point(152, 421);
             this.btn_Convert.Name = "btn_Convert";
             this.btn_Convert.Size = new System.Drawing.Size(75, 23);
             this.btn_Convert.TabIndex = 9;
@@ -160,10 +166,13 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.rtb_Result);
             this.groupBox2.Location = new System.Drawing.Point(273, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(442, 394);
+            this.groupBox2.Size = new System.Drawing.Size(763, 456);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "轉換結果";
@@ -174,7 +183,8 @@
             this.rtb_Result.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rtb_Result.Location = new System.Drawing.Point(3, 18);
             this.rtb_Result.Name = "rtb_Result";
-            this.rtb_Result.Size = new System.Drawing.Size(436, 373);
+            this.rtb_Result.ReadOnly = true;
+            this.rtb_Result.Size = new System.Drawing.Size(757, 435);
             this.rtb_Result.TabIndex = 0;
             this.rtb_Result.Text = "";
             // 
@@ -196,7 +206,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(727, 415);
+            this.ClientSize = new System.Drawing.Size(1048, 477);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;

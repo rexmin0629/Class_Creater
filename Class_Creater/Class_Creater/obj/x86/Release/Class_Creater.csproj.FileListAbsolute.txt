@@ -5,4 +5,3 @@ D:\Rex\Project\My_Own_Project\Class_Creater\Class_Creater\obj\x86\Release\Class_
 D:\Rex\Project\My_Own_Project\Class_Creater\Class_Creater\obj\x86\Release\Class_Creater.csproj.GenerateResource.Cache
 D:\Rex\Project\My_Own_Project\Class_Creater\Class_Creater\obj\x86\Release\Class_Creater.exe
 D:\Rex\Project\My_Own_Project\Class_Creater\Class_Creater\obj\x86\Release\Class_Creater.pdb
-D:\Rex\Project\My_Own_Project\Class_Creater\Class_Creater\obj\x86\Release\Class_Creater.csprojResolveAssemblyReference.cache
