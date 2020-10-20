@@ -163,6 +163,8 @@ namespace Class_Creater
                 foreach (Param p in List_Params)
                 {
                     str_body = str_body + string.Format("     private {0} _{1} = default({2});\n", p.ParamType.ToString().ToLower(), p.ParamName, p.ParamType.ToString().ToLower());
+                    str_body = str_body + string.Format(@"     [Display(Name = ""{0}"", Description = ""中文"")]", p.ParamName.ToUpper()) + "\n";
+                    str_body = str_body + string.Format(@"     [System.ComponentModel.DisplayName(""中文"")]") + "\n";
                     str_body = str_body + string.Format("     public {0} {1}", p.ParamType.ToString().ToLower(), p.ParamName.ToUpper()) + "\n     {\n";
                     str_body = str_body + "          get { return _" + p.ParamName + "; }\n";
                     str_body = str_body + "          set \n          {\n";
